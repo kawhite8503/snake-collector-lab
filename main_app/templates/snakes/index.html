@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link 
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/snakes/snake-index.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>Snake List</h1>
+  <img src="{% static 'images/cute blue snake.jpeg' %}" alt="A blue snake" />
+  <img src="{% static 'images/happy snake.jpeg' %}" alt="A happy snake" />
+  <img src="{% static 'images/hungry snake.jpeg' %}" alt="A hungry snake" />
+  <img src="{% static 'images/snake with rattle.jpeg' %}" alt="A rattle snake" />
+</section>
+
+<section class="card-container">
+  {% for snake in snakes %}
+    <div class="card">
+      <a href="{% url 'snakes_detail' snake.id %}">
+        <div class="card-content">
+          <div class="card-img-container">
+            <img 
+              src="{% static 'images/snake on a log.jpeg' %}" 
+              alt="A friendly snake"
+              style="max-width: 250px"
+            >
+          </div>
+          <h2 class="card-title">{{ snake.name }}</h2>
+          {% if .age > 0 %}        
+            <p>A {{ snake.age }} year old {{ snake.breed }}</p>
+          {% else %}
+            <p>A {{ snake.breed }} baby snake.</p>
+          {% endif %}
+          <p><small>{{ snake.description }}</small></p>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+</section>
+
+{% endblock %}
