@@ -1,0 +1,36 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block head %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/toys/toy-index.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>All Snake Toys</h1>
+  <img src="{% static 'images/ladder.jpeg' %}" alt="A ladder" />
+  <img src="{% static 'images/log.jpeg' %}" alt="A log" />
+  <img src="{% static 'images/vine.jpeg' %}" alt="A vine" />
+  <img src="{% static 'images/cave.jpeg' %}" alt="A cave" />
+</section>
+
+<section class="card-container">
+  {% for toy in toy_list %}
+  <div class="card" style="border-color: {{ toy.color }}">
+    <div class="card-bg" style="background-color: {{ toy.color }}"></div>
+    <a href="{% url 'toys_detail' toy.id %}">
+      <div class="card-content">
+        <h2>{{ toy.name }}</h2>
+        <p>A {{ toy.color }} toy</p>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock %}
