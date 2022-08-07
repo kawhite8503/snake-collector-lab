@@ -96,6 +96,56 @@
       </div>
     {% endif %}
   </section>
+  <section class="toys">
+    <div class="subsection-title">
+      <h2>Toys</h2>
+      <img src="{% static 'images/ladder.jpeg' %}" alt="A ladder" />
+      <img src="{% static 'images/log.jpeg' %}" alt="A log" />
+      <img src="{% static 'images/cave.jpeg' %}" alt="A cave" />
+    </div>
+    <h3>{{ snake.name }}'s Toys</h3>
+    <div class="subsection-content">
+      {% if snake.toys.count %}
+        {% for toy in snake.toys.all %}
+          <div class="toy-container">
+            <div 
+              class="color-block"
+              style="background-color: {{ toy.color }}"
+            ></div>
+            <a href="{% url 'toys_detail' toy.id %}">
+              <p>A {{ toy.color }} {{ toy.name }}</p>
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="no-toys">{{snake.name}} doesn't have any toys 😞</p>
+      {% endif %}
+    </div>
+    <h3>Available Toys</h3>
+    <div class="subsection-content">
+      {% if toys.count %}
+        {% for toy in toys.all %}
+          <div class="toy-container">
+            <div 
+              class="color-block"
+              style="background-color: {{ toy.color }}"
+            ></div>
+            <a href="{% url 'toys_detail' toy.id %}">
+              <p>A {{ toy.color }} {{ toy.name }}</p>
+            </a>
+            <form action="{% url 'assoc_toy' snake.id toy.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn submit">Give toy</button>
+            </form>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="all-toys">
+          {{cat.name}} already has all the available toys 🥳
+        </p>
+      {% endif %}
+    </div>
+  </section>
 </div>
 
 {% endblock %}
